@@ -14,85 +14,76 @@
 <style>
   :root{
     --paper:#F2EEE4;--surface:#FBFAF5;--ink:#20302A;--ink-soft:#4A584F;
-    --sage:#7C8A6B;--sage-tint:#E7EBDF;--brass:#A9884E;--brass-soft:#C9B183;
-    --line:#DBD5C5;--brick:#9E5A43;
+    --sage:#7C8A6B;--sage-tint:#E7EBDF;--brass:#A9884E;--brass-soft:#C9B183;--line:#DBD5C5;
     --shadow:0 1px 2px rgba(32,48,42,.05), 0 12px 30px -18px rgba(32,48,42,.28);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
   body{background:var(--paper);color:var(--ink);font-family:"Noto Sans JP",sans-serif;
     line-height:1.75;-webkit-font-smoothing:antialiased;
-    padding:0 20px calc(48px + env(safe-area-inset-bottom));}
+    padding:0 20px calc(48px + env(safe-area-inset-bottom))}
   .wrap{max-width:560px;margin:0 auto}
-  header{padding:44px 0 22px;text-align:center}
+  header{padding:40px 0 20px;text-align:center}
   .eyebrow{font-size:.68rem;letter-spacing:.32em;font-weight:700;color:var(--brass);text-transform:uppercase}
   .mark{font-family:"Cormorant Garamond",serif;font-weight:600;letter-spacing:.14em;font-size:1.05rem;color:var(--ink)}
   h1{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(1.7rem,6.4vw,2.35rem);
-    line-height:1.4;margin:18px 0 12px;letter-spacing:.01em}
-  h1 .accent{color:var(--brass);font-style:normal}
+    line-height:1.4;margin:16px 0 12px}
+  h1 .accent{color:var(--brass)}
   .lede{color:var(--ink-soft);font-size:.94rem;max-width:30em;margin:0 auto}
-  .meter{position:sticky;top:0;z-index:20;margin:0 -20px;padding:14px 20px 12px;
-    background:color-mix(in srgb,var(--paper) 88%,transparent);
-    backdrop-filter:saturate(1.1) blur(8px);border-bottom:1px solid var(--line)}
-  .meter-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .meter{position:sticky;top:0;z-index:20;margin:0 -20px;padding:13px 20px 11px;
+    background:rgba(242,238,228,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .meter-row{display:flex;align-items:baseline;justify-content:space-between}
   .meter-label{font-size:.78rem;color:var(--ink-soft);font-weight:500}
-  .meter-count{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.35rem;color:var(--ink)}
+  .meter-count{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.35rem}
   .meter-count b{color:var(--brass);font-size:1.7rem}
-  .thread{position:relative;height:16px;margin-top:11px}
+  .thread{position:relative;height:16px;margin-top:10px}
   .thread .rail{position:absolute;top:50%;left:4px;right:4px;height:2px;background:var(--line);transform:translateY(-50%)}
   .thread ul{position:relative;display:flex;justify-content:space-between;list-style:none;height:100%}
   .thread li{width:11px;height:11px;border-radius:50%;align-self:center;background:var(--surface);
-    border:1.5px solid var(--sage);
-    transition:transform .28s cubic-bezier(.34,1.56,.64,1),background .2s,border-color .2s}
+    border:1.5px solid var(--sage);transition:transform .25s,background .2s,border-color .2s}
   .thread li.on{background:var(--brass);border-color:var(--brass);transform:scale(1.32)}
   .list{margin:22px 0 4px}
-  .q-intro{font-size:.82rem;color:var(--ink-soft);margin-bottom:12px;letter-spacing:.02em}
-  .item{display:flex;gap:13px;align-items:flex-start;width:100%;text-align:left;
-    background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:15px 16px;
-    margin-bottom:10px;cursor:pointer;font-family:inherit;font-size:.96rem;line-height:1.6;color:var(--ink);
-    transition:border-color .18s,background .18s,transform .06s}
-  .item:active{transform:scale(.994)}
-  .item:hover{border-color:var(--brass-soft)}
-  .item:focus-visible{outline:2.5px solid var(--brass);outline-offset:2px}
+  .q-intro{font-size:.82rem;color:var(--ink-soft);margin-bottom:12px}
+
+  /* --- tap-to-select works with ZERO javascript (native checkbox) --- */
+  .item{display:flex;gap:13px;align-items:flex-start;position:relative;
+    background:var(--surface);border:1px solid var(--line);border-radius:13px;
+    padding:15px 16px;margin-bottom:10px;cursor:pointer;
+    font-size:.96rem;line-height:1.6;color:var(--ink);
+    transition:border-color .18s,background .18s;-webkit-tap-highlight-color:transparent}
+  .item:active{transform:scale(.995)}
+  .chk{position:absolute;opacity:0;width:1px;height:1px;margin:0}
   .box{flex:0 0 auto;width:22px;height:22px;border-radius:6px;margin-top:1px;
     border:1.5px solid var(--sage);background:var(--surface);display:grid;place-items:center;
     transition:background .18s,border-color .18s}
   .box svg{width:13px;height:13px;stroke:var(--surface);stroke-width:2.6;fill:none;
-    stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;
-    transition:stroke-dashoffset .26s ease .02s}
-  .item[aria-pressed="true"]{background:var(--sage-tint);border-color:var(--sage)}
-  .item[aria-pressed="true"] .box{background:var(--brass);border-color:var(--brass)}
-  .item[aria-pressed="true"] .box svg{stroke-dashoffset:0}
-  .item .txt{padding-top:1px}
+    stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .18s}
+  .chk:checked ~ .box{background:var(--brass);border-color:var(--brass)}
+  .chk:checked ~ .box svg{opacity:1}
+  .item:has(.chk:checked){background:var(--sage-tint);border-color:var(--sage)}
+  .chk:focus-visible ~ .box{outline:2.5px solid var(--brass);outline-offset:2px}
+  .txt{padding-top:1px}
+
   .result{margin-top:26px;background:var(--ink);color:#EEEADF;border-radius:18px;
     padding:30px 24px 26px;box-shadow:var(--shadow)}
   .result .band{font-size:.72rem;letter-spacing:.22em;font-weight:700;text-transform:uppercase}
-  .band.b0{color:var(--sage)} .band.b1{color:var(--brass-soft)}
-  .band.b2{color:#E0A57F} .band.b3{color:#E58B6E}
+  .band.b0{color:var(--sage)}.band.b1{color:var(--brass-soft)}.band.b2{color:#E0A57F}.band.b3{color:#E58B6E}
   .score{font-family:"Cormorant Garamond",serif;font-weight:600;line-height:1;margin:8px 0 2px}
-  .score .n{font-size:3.4rem;color:#fff} .score .d{font-size:1.4rem;color:#9EA99B}
+  .score .n{font-size:3.4rem;color:#fff}.score .d{font-size:1.4rem;color:#9EA99B}
   .r-head{font-family:"Shippori Mincho",serif;font-weight:700;font-size:1.28rem;line-height:1.5;margin:14px 0 10px;color:#fff}
   .r-body{font-size:.92rem;line-height:1.8;color:#CFD5CB}
   .tags{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 4px}
   .tags .cap{width:100%;font-size:.74rem;letter-spacing:.08em;color:#93A091;margin-bottom:2px}
   .tag{font-size:.78rem;padding:5px 11px;border-radius:100px;background:rgba(169,136,78,.14);
-    border:1px solid rgba(201,177,131,.4);color:#E8DCC2;opacity:0;transform:translateY(6px);
-    animation:gather .4s ease forwards}
-  @keyframes gather{to{opacity:1;transform:none}}
+    border:1px solid rgba(201,177,131,.4);color:#E8DCC2}
   .cta{display:block;margin-top:22px;text-align:center;text-decoration:none;background:var(--brass);
-    color:#20302A;font-weight:700;font-size:1rem;padding:16px 18px;border-radius:12px;letter-spacing:.02em;
-    transition:transform .08s,filter .18s}
-  .cta:hover{filter:brightness(1.05)} .cta:active{transform:scale(.985)}
-  .cta:focus-visible{outline:3px solid #fff;outline-offset:2px}
-  .cta small{display:block;font-weight:500;font-size:.76rem;color:#3c4a3f;margin-top:3px;letter-spacing:0}
+    color:#20302A;font-weight:700;font-size:1rem;padding:16px 18px;border-radius:12px}
+  .cta:active{transform:scale(.985)}
+  .cta small{display:block;font-weight:500;font-size:.76rem;color:#3c4a3f;margin-top:3px}
   .reassure{font-size:.76rem;color:#93A091;text-align:center;margin-top:13px;line-height:1.7}
-  footer{text-align:center;padding:34px 0 8px;color:var(--ink-soft);font-size:.76rem}
+  footer{text-align:center;padding:32px 0 8px;color:var(--ink-soft);font-size:.76rem}
   footer .fmark{font-family:"Cormorant Garamond",serif;letter-spacing:.16em;color:var(--ink);font-size:.9rem}
-  footer a{color:var(--brass);text-decoration:none}
-  @media (prefers-reduced-motion:reduce){
-    *{transition:none!important;animation:none!important}
-    .item[aria-pressed="true"] .box svg{stroke-dashoffset:0}
-  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -109,59 +100,45 @@
       <span class="meter-label">当てはまった項目</span>
       <span class="meter-count"><b id="count">0</b> / 10</span>
     </div>
-    <div class="thread">
-      <span class="rail"></span>
-      <ul id="thread">
-        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-      </ul>
+    <div class="thread"><span class="rail"></span>
+      <ul id="thread"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
     </div>
   </div>
 
-  <section class="list" aria-label="セルフチェック項目">
+  <section class="list">
     <p class="q-intro">「うちのことだ」と思ったら、タップして選んでください。</p>
-    <div id="items">
-      <button class="item" type="button" aria-pressed="false" data-tag="フォーム×表計算">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">申込はGoogleフォーム、予約状況は別のスプレッドシートで見ている</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="会員情報">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">会員・常連さんの情報が、LINE・DM・紙などに散らばっている</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="来店履歴">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">「この人、前回いつ来たっけ？」を思い出す・探すのに手間がかかる</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="当日の受付">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">当日の受付は、印刷した名簿やスマホのメモで確認している</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="変更連絡">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">予約の変更やキャンセルの連絡が、いろんな経路から届く</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="会員確認">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">会員かどうか・条件を満たすかを、目視や記憶で確認している</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="次回案内">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">「次回のご案内」を出しそびれてしまうことがある</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="二重入力">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">同じ情報を、複数のツールに二重・三重で入力している</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="属人化">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">自分が対応しないと、予約や会員まわりが止まってしまう</span>
-      </button>
-      <button class="item" type="button" aria-pressed="false" data-tag="集計">
-        <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
-        <span class="txt">売上や来店の傾向を、後から集計するのが面倒・できていない</span>
-      </button>
-    </div>
+
+    <label class="item"><input type="checkbox" class="chk" data-tag="フォーム×表計算" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">申込はGoogleフォーム、予約状況は別のスプレッドシートで見ている</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="会員情報" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">会員・常連さんの情報が、LINE・DM・紙などに散らばっている</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="来店履歴" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">「この人、前回いつ来たっけ？」を思い出す・探すのに手間がかかる</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="当日の受付" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">当日の受付は、印刷した名簿やスマホのメモで確認している</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="変更連絡" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">予約の変更やキャンセルの連絡が、いろんな経路から届く</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="会員確認" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">会員かどうか・条件を満たすかを、目視や記憶で確認している</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="次回案内" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">「次回のご案内」を出しそびれてしまうことがある</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="二重入力" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">同じ情報を、複数のツールに二重・三重で入力している</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="属人化" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">自分が対応しないと、予約や会員まわりが止まってしまう</span></label>
+    <label class="item"><input type="checkbox" class="chk" data-tag="集計" onchange="LIENupd()"><span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span><span class="txt">売上や来店の傾向を、後から集計するのが面倒・できていない</span></label>
   </section>
 
-  <section class="result" id="result" aria-live="polite">
-    <div class="band b0" id="band"
+  <section class="result" id="result">
+    <div class="band b0" id="band">まだ選ばれていません</div>
+    <div class="score"><span class="n" id="scoreN">0</span><span class="d"> / 10</span></div>
+    <h2 class="r-head" id="rHead">上から、当てはまるものを選んでみてください</h2>
+    <p class="r-body" id="rBody">タップするたびに、今の運営がどれくらい別々の場所で動いているかが見えてきます。</p>
+    <div class="tags" id="tags"></div>
+    <a class="cta" href="LINE_URL_HERE">この結果について、気軽に聞いてみる<small>タップでLINEのトークに戻ります</small></a>
+    <p class="reassure">売り込みはしません。合わなければ、無理におすすめもしません。</p>
+  </section>
+
+  <footer><div class="fmark">LIEN</div>申込・予約・受付・履歴を、ひとつの流れに。<br>by 合同会社Nalu-09</footer>
+</div>
+
+<script>
+function LIENupd(){
+  var chks=document.querySelectorAll('.chk');
+  var nodes=document.querySelectorAll('#thread li');
+  var chosen=[],score=0,i;
+  for(i=0;i<chks.length;i++){
+    var on=chks[i].checked;
+    if(nodes[i]) nodes[i].className=on?'on':'';
+    i
