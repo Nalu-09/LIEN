@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>運営バラバラ度セルフチェック｜LIEN by Nalu-09</title>
+<meta name="description" content="申込・予約・会員・受付が別々になっていませんか。当てはまるものをタップするだけ、1分で今の運営の“散らばり度”がわかります。">
+<meta property="og:title" content="運営バラバラ度セルフチェック｜LIEN">
+<meta property="og:description" content="当てはまるものをタップするだけ。1分で今の運営の“散らばり度”がわかります。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Shippori+Mincho:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EEE4;
+    --surface:#FBFAF5;
+    --ink:#20302A;
+    --ink-soft:#4A584F;
+    --sage:#7C8A6B;
+    --sage-tint:#E7EBDF;
+    --brass:#A9884E;
+    --brass-soft:#C9B183;
+    --line:#DBD5C5;
+    --brick:#9E5A43;
+    --shadow:0 1px 2px rgba(32,48,42,.05), 0 12px 30px -18px rgba(32,48,42,.28);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    padding:0 20px calc(48px + env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:560px;margin:0 auto}
+
+  /* ---------- header ---------- */
+  header{padding:44px 0 22px;text-align:center}
+  .eyebrow{
+    font-size:.68rem;letter-spacing:.32em;font-weight:700;
+    color:var(--brass);text-transform:uppercase;
+  }
+  .mark{
+    font-family:"Cormorant Garamond",serif;font-weight:600;
+    letter-spacing:.14em;font-size:1.05rem;color:var(--ink);
+  }
+  h1{
+    font-family:"Shippori Mincho",serif;font-weight:700;
+    font-size:clamp(1.7rem,6.4vw,2.35rem);line-height:1.4;
+    margin:18px 0 12px;letter-spacing:.01em;
+  }
+  h1 .accent{color:var(--brass);font-style:normal}
+  .lede{color:var(--ink-soft);font-size:.94rem;max-width:30em;margin:0 auto}
+
+  /* ---------- sticky meter ---------- */
+  .meter{
+    position:sticky;top:0;z-index:20;
+    margin:0 -20px;padding:14px 20px 12px;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:saturate(1.1) blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .meter-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .meter-label{font-size:.78rem;color:var(--ink-soft);font-weight:500}
+  .meter-count{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.35rem;color:var(--ink)}
+  .meter-count b{color:var(--brass);font-size:1.7rem}
+  /* thread: 10 nodes = 10 possible break points in the flow */
+  .thread{position:relative;height:16px;margin-top:11px}
+  .thread .rail{position:absolute;top:50%;left:4px;right:4px;height:2px;background:var(--line);transform:translateY(-50%)}
+  .thread ul{position:relative;display:flex;justify-content:space-between;list-style:none;height:100%}
+  .thread li{width:11px;height:11px;border-radius:50%;align-self:center;
+    background:var(--surface);border:1.5px solid var(--sage);
+    transition:transform .28s cubic-bezier(.34,1.56,.64,1),background .2s,border-color .2s}
+  .thread li.on{background:var(--brass);border-color:var(--brass);transform:scale(1.32)}
+
+  /* ---------- checklist ---------- */
+  .list{margin:22px 0 4px}
+  .q-intro{font-size:.82rem;color:var(--ink-soft);margin-bottom:12px;letter-spacing:.02em}
+  .item{
+    display:flex;gap:13px;align-items:flex-start;width:100%;text-align:left;
+    background:var(--surface);border:1px solid var(--line);border-radius:13px;
+    padding:15px 16px;margin-bottom:10px;cursor:pointer;
+    font-family:inherit;font-size:.96rem;line-height:1.6;color:var(--ink);
+    transition:border-color .18s,background .18s,transform .06s;
+  }
+  .item:active{transform:scale(.994)}
+  .item:hover{border-color:var(--brass-soft)}
+  .item:focus-visible{outline:2.5px solid var(--brass);outline-offset:2px}
+  .box{
+    flex:0 0 auto;width:22px;height:22px;border-radius:6px;margin-top:1px;
+    border:1.5px solid var(--sage);background:var(--surface);
+    display:grid;place-items:center;transition:background .18s,border-color .18s;
+  }
+  .box svg{width:13px;height:13px;stroke:var(--surface);stroke-width:2.6;fill:none;
+    stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .26s ease .02s}
+  .item[aria-pressed="true"]{background:var(--sage-tint);border-color:var(--sage)}
+  .item[aria-pressed="true"] .box{background:var(--brass);border-color:var(--brass)}
+  .item[aria-pressed="true"] .box svg{stroke-dashoffset:0}
+  .item .txt{padding-top:1px}
+
+  /* ---------- result ---------- */
+  .result{
+    margin-top:26px;background:var(--ink);color:#EEEADF;border-radius:18px;
+    padding:30px 24px 26px;box-shadow:var(--shadow);
+  }
+  .result .band{font-size:.72rem;letter-spacing:.22em;font-weight:700;text-transform:uppercase}
+  .band.b0{color:var(--sage)} .band.b1{color:var(--brass-soft)}
+  .band.b2{color:#E0A57F} .band.b3{color:#E58B6E}
+  .score{font-family:"Cormorant Garamond",serif;font-weight:600;line-height:1;margin:8px 0 2px}
+  .score .n{font-size:3.4rem;color:#fff} .score .d{font-size:1.4rem;color:#9EA99B}
+  .r-head{font-family:"Shippori Mincho",serif;font-weight:700;font-size:1.28rem;line-height:1.5;margin:14px 0 10px;color:#fff}
+  .r-body{font-size:.92rem;line-height:1.8;color:#CFD5CB}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 4px}
+  .tags .cap{width:100%;font-size:.74rem;letter-spacing:.08em;color:#93A091;margin-bottom:2px}
+  .tag{font-size:.78rem;padding:5px 11px;border-radius:100px;
+    background:rgba(169,136,78,.14);border:1px solid rgba(201,177,131,.4);color:#E8DCC2;
+    opacity:0;transform:translateY(6px);animation:gather .4s ease forwards}
+  @keyframes gather{to{opacity:1;transform:none}}
+  .cta{
+    display:block;margin-top:22px;text-align:center;text-decoration:none;
+    background:var(--brass);color:#20302A;font-weight:700;font-size:1rem;
+    padding:16px 18px;border-radius:12px;letter-spacing:.02em;
+    transition:transform .08s,filter .18s;
+  }
+  .cta:hover{filter:brightness(1.05)} .cta:active{transform:scale(.985)}
+  .cta:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  .cta small{display:block;font-weight:500;font-size:.76rem;color:#3c4a3f;margin-top:3px;letter-spacing:0}
+  .reassure{font-size:.76rem;color:#93A091;text-align:center;margin-top:13px;line-height:1.7}
+
+  footer{text-align:center;padding:34px 0 8px;color:var(--ink-soft);font-size:.76rem}
+  footer .fmark{font-family:"Cormorant Garamond",serif;letter-spacing:.16em;color:var(--ink);font-size:.9rem}
+  footer a{color:var(--brass);text-decoration:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .item[aria-pressed="true"] .box svg{stroke-dashoffset:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow"><span class="mark">LIEN</span> ・ 運営セルフチェック</div>
+    <h1>今の運営、どれくらい<br><span class="accent">“バラバラ”</span>ですか？</h1>
+    <p class="lede">当てはまるものをタップするだけ。1分で、いまの散らばり具合がわかります。</p>
+  </header>
+
+  <div class="meter" aria-hidden="true">
+    <div class="meter-row">
+      <span class="meter-label">当てはまった項目</span>
+      <span class="meter-count"><b id="count">0</b> / 10</span>
+    </div>
+    <div class="thread">
+      <span class="rail"></span>
+      <ul id="thread"></ul>
+    </div>
+  </div>
+
+  <section class="list" aria-label="セルフチェック項目">
+    <p class="q-intro">「うちのことだ」と思ったら、タップして選んでください。</p>
+    <div id="items"></div>
+  </section>
+
+  <section class="result" id="result" aria-live="polite">
+    <div class="band b0" id="band">まだ選ばれていません</div>
+    <div class="score"><span class="n" id="scoreN">0</span><span class="d"> / 10</span></div>
+    <h2 class="r-head" id="rHead">上から、当てはまるものを選んでみてください</h2>
+    <p class="r-body" id="rBody">タップするたびに、今の運営がどれくらい別々の場所で動いているかが見えてきます。</p>
+    <div class="tags" id="tags"></div>
+    <a class="cta" id="cta" href="LINE_URL_HERE">
+      結果に合わせた整理のヒントを受け取る
+      <small>LINEのトークに「診断」と送るだけ</small>
+    </a>
+    <p class="reassure">売り込みはしません。合わなければ、無理におすすめもしません。</p>
+  </section>
+
+  <footer>
+    <div class="fmark">LIEN</div>
+    申込・予約・受付・履歴を、ひとつの流れに。<br>
+    by 合同会社Nalu-09
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // item text + short tag label (tag = the tool/task that's running separately)
+  var DATA = [
+    ["申込はGoogleフォーム、予約状況は別のスプレッドシートで見ている","フォーム×表計算"],
+    ["会員・常連さんの情報が、LINE・DM・紙などに散らばっている","会員情報"],
+    ["「この人、前回いつ来たっけ？」を思い出す・探すのに手間がかかる","来店履歴"],
+    ["当日の受付は、印刷した名簿やスマホのメモで確認している","当日の受付"],
+    ["予約の変更やキャンセルの連絡が、いろんな経路から届く","変更連絡"],
+    ["会員かどうか・条件を満たすかを、目視や記憶で確認している","会員確認"],
+    ["「次回のご案内」を出しそびれてしまうことがある","次回案内"],
+    ["同じ情報を、複数のツールに二重・三重で入力している","二重入力"],
+    ["自分が対応しないと、予約や会員まわりが止まってしまう","属人化"],
+    ["売上や来店の傾向を、後から集計するのが面倒・できていない","集計"]
+  ];
+
+  var BANDS = [
+    { min:0, max:2, cls:"b0", label:"ほぼ一本化",
+      head:"だいぶ整っています。あと一歩は“つながり”。",
+      body:"日々の管理はかなり整理できています。次に効くのは、たまった履歴を“次回のご案内”までつなげること。関係を毎回ゼロから作り直さずに済む形が、あと少しで完成します。" },
+    { min:3, max:5, cls:"b1", label:"黄色信号",
+      head:"回ってはいる。でも、あなたの手作業で。",
+      body:"仕組みが分かれている分を、いまは記憶と手作業で埋めている状態です。件数が増えるほど、この“つなぎ役”の負担が静かに重くなっていきます。早めに一本化しておくとラクです。" },
+    { min:6, max:8, cls:"b2", label:"赤信号",
+      head:"あなたの時間が、“管理”に溶けています。",
+      body:"申込・予約・会員・受付が別々に動いていて、行き来と転記に時間を取られています。ここを一本の流れにすると、浮くのは毎回の確認と入力の時間そのものです。" },
+    { min:9, max:10, cls:"b3", label:"危険",
+      head:"仕組みが分かれすぎて、機会も抜けています。",
+      body:"管理が属人化し、次の案内や集計まで手が回らない状態です。これは頑張りの問題ではなく、流れが分かれていることの問題。まずは一度、整理の入口だけでも見てみる価値があります。" }
+  ];
+
+  var items = document.getElementById('items');
+  var thread = document.getElementById('thread');
+  var state = new Array(DATA.length).fill(false);
+
+  // build thread nodes
+  DATA.forEach(function(){ var li=document.createElement('li'); thread.appendChild(li); });
+  var nodes = thread.querySelectorAll('li');
+
+  // bu
