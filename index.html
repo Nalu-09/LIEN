@@ -5,33 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LIEN｜by Nalu-09 - 申込・予約・受付・履歴を、ひとつの流れに。</title>
 <meta name="description" content="LIENは、独自の運営ルールに合わせて設計する、小規模事業者向けの会員・予約管理システムです。会員申請から承認、会員証発行、予約受付、当日チェックイン、履歴管理、次回案内までをひとつの流れにつなぎます。">
-
-<!-- OGP -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="LIEN｜by Nalu-09 - 申込・予約・受付・履歴を、ひとつの流れに。">
 <meta property="og:description" content="独自の運営ルールに合わせて設計する、小規模事業者向け会員・予約管理システム。">
 <meta property="og:image" content="images/ogp-lien.png">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-
-<!-- Favicon -->
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-
-<!-- Google Analytics: paste gtag.js snippet here when ready -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script> -->
-
 <link rel="stylesheet" href="style.css">
+<style>
+/* ===== 料金3プラン用 追加スタイル ===== */
+.price-card__monthly{font-size:.95rem;color:#8a6d3b;font-weight:600;margin:2px 0 14px}
+.price-card--accent .price-card__monthly{color:#b8860b}
+.price-card__note-lead{font-size:.82rem;color:#7a7a7a;margin:6px 0 8px;font-weight:600}
+.price-card__list{list-style:none;padding:0;margin:12px 0 0;text-align:left}
+.price-card__list li{font-size:.86rem;line-height:1.7;padding:5px 0 5px 20px;position:relative;color:#4a4a4a;border-bottom:1px solid rgba(0,0,0,.05)}
+.price-card__list li::before{content:"―";position:absolute;left:0;color:#c6a15b}
+.price-card--accent .price-card__list li{color:#3a3a3a}
+</style>
 </head>
 <body>
 
-<!-- ============ HEADER / NAV ============ -->
 <header class="site-header" id="top">
   <div class="wrap header-inner">
     <a href="#top" class="brand-mark">
@@ -47,26 +46,20 @@
 
 <main>
 
-  <!-- ============ 1. HERO ============ -->
   <section class="hero">
     <div class="hero-bg-motif" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <img src="images/logo-lien-by-nalu-web.png" alt="LIEN by Nalu-09" class="hero-logo" width="320" height="320">
-
       <h1 class="hero-headline">申込・予約・受付・履歴を<br>ひとつの流れに</h1>
-
       <p class="hero-sub">独自の運営ルールに合わせて設計する<br>小規模事業者向け会員・予約管理システム</p>
-
       <div class="dot-line" aria-hidden="true">
         <span class="dot-line__line"></span>
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
-
       <p class="hero-target">
         月1回以上のイベントや会員制サービスを<br class="sp-only">
         独自のルールで運営している方へ
       </p>
-
       <div class="hero-cta">
         <a href="#cta" class="btn btn--primary">自社の運営に合うか相談する</a>
         <a href="#features" class="btn btn--ghost">機能・料金を見る</a>
@@ -74,7 +67,6 @@
     </div>
   </section>
 
-  <!-- ============ 2. 共感・問題提起 ============ -->
   <section class="section section--ivory">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">よくある運営の姿</p>
@@ -83,7 +75,6 @@
         今はなんとか回っている。<br>
         ただ開催や利用が増えるほど、確認と転記の手間は少しずつ積み重なっていきます。
       </p>
-
       <ul class="scatter-list">
         <li><span class="scatter-list__label">申込</span>Googleフォーム</li>
         <li><span class="scatter-list__label">予約状況</span>スプレッドシート</li>
@@ -92,7 +83,6 @@
         <li><span class="scatter-list__label">来店履歴</span>担当者の記憶や手作業</li>
         <li><span class="scatter-list__label">次回案内</span>対象者を毎回探している</li>
       </ul>
-
       <p class="section-note">
         ひとつひとつは、今日も問題なく動いています。<br>
         ただ、それぞれが独立しているだけです。
@@ -100,13 +90,11 @@
     </div>
   </section>
 
-  <!-- ============ 3. 放置した場合 ============ -->
   <section class="section section--white">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">このままだとどうなるか</p>
       <h2 class="section-title">このままでも、たぶん回ります。</h2>
       <p class="section-lead">ただ確認する時間だけは、確実に増えていきます。</p>
-
       <ul class="check-list check-list--muted">
         <li>確認や転記にかかる時間が増える</li>
         <li>情報が特定の担当者に集中する</li>
@@ -118,19 +106,15 @@
     </div>
   </section>
 
-  <!-- ============ 4. LIENとは（循環図） ============ -->
   <section class="section section--navy" id="what">
     <div class="wrap wrap--narrow">
       <p class="eyebrow eyebrow--gold">LIENとは</p>
-      <h2 class="section-title section-title--light">
-        予約を取るだけの<br class="sp-only">仕組みではありません。
-      </h2>
+      <h2 class="section-title section-title--light">予約を取るだけの<br class="sp-only">仕組みではありません。</h2>
       <p class="section-lead section-lead--light">
         会員申請、運営者による承認、会員証発行、会員向け予約、当日チェックイン、
         履歴の蓄積、次回案内・再予約<br>
         LIENは、これらをひとつながりの運営導線としてつなぐ会員・予約管理システムです。
       </p>
-
       <div class="flow-diagram" role="list" aria-label="LIENがつなぐ運営の流れ">
         <div class="flow-node" role="listitem"><span class="flow-node__text">会員申請</span></div>
         <div class="flow-connector" aria-hidden="true"></div>
@@ -150,12 +134,10 @@
     </div>
   </section>
 
-  <!-- ============ 5. 導入前と導入後 ============ -->
   <section class="section section--ivory">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">導入前と導入後</p>
       <h2 class="section-title">運営の景色が、変わります</h2>
-
       <div class="before-after">
         <div class="ba-card ba-card--before">
           <h3 class="ba-card__title">導入前</h3>
@@ -181,87 +163,63 @@
     </div>
   </section>
 
-  <!-- ============ 6. 実際の機能・画面 ============ -->
   <section class="section section--white" id="screens">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">実際の機能・画面</p>
       <h2 class="section-title">実際に動いています</h2>
-      <p class="section-lead">
-        こちらは実際に稼働している自社システムの画面です。架空のUIではありません。
-      </p>
-
+      <p class="section-lead">こちらは実際に稼働している自社システムの画面です。架空のUIではありません。</p>
       <div class="screen-block">
         <div class="screen-block__image">
-          <img src="images/mockup-01-application.jpg" alt="会員申請フォームの画面。申請内容の入力から送信完了までを確認できる。" loading="lazy" width="1400" height="993">
+          <img src="images/mockup-01-application.jpg" alt="会員申請フォームの画面。" loading="lazy" width="1400" height="993">
         </div>
         <div class="screen-block__text">
           <p class="screen-block__label">会員申請</p>
-          <p class="screen-block__desc">
-            申請フォームから送信完了までを確認できます。<br>
-            申請後は運営者が内容を確認し、承認後に会員証を発行します。
-          </p>
+          <p class="screen-block__desc">申請フォームから送信完了までを確認できます。<br>申請後は運営者が内容を確認し、承認後に会員証を発行します。</p>
         </div>
       </div>
-
       <div class="screen-block screen-block--reverse">
         <div class="screen-block__image">
-          <img src="images/mockup-02-membercard.jpg" alt="デジタル会員証の画面。会員番号・会員ランク・表示名を掲載。" loading="lazy" width="1400" height="993">
+          <img src="images/mockup-02-membercard.jpg" alt="デジタル会員証の画面。" loading="lazy" width="1400" height="993">
         </div>
         <div class="screen-block__text">
           <p class="screen-block__label">デジタル会員証</p>
-          <p class="screen-block__desc">
-            会員番号、会員ランク、表示名などを掲載できます。<br>
-            ブランドごとの世界観に合わせた会員証デザインにも対応します。
-          </p>
+          <p class="screen-block__desc">会員番号、会員ランク、表示名などを掲載できます。<br>ブランドごとの世界観に合わせた会員証デザインにも対応します。</p>
         </div>
       </div>
-
       <div class="screen-block">
         <div class="screen-block__image">
           <img src="images/mockup-03-reservation-control.jpg" alt="会員条件に応じた予約制御の画面。" loading="lazy" width="1400" height="993">
         </div>
         <div class="screen-block__text">
           <p class="screen-block__label">会員条件に応じた予約制御</p>
-          <p class="screen-block__desc">
-            会員情報や会員条件を確認し、予約を受け付ける対象を制御できます。
-          </p>
+          <p class="screen-block__desc">会員情報や会員条件を確認し、予約を受け付ける対象を制御できます。</p>
         </div>
       </div>
-
       <div class="screen-block screen-block--reverse">
         <div class="screen-block__image">
-          <img src="images/mockup-04-admin.jpg" alt="予約管理画面。予約件数や人数、備考などを確認できる。" loading="lazy" width="1400" height="993">
+          <img src="images/mockup-04-admin.jpg" alt="予約管理画面。" loading="lazy" width="1400" height="993">
         </div>
         <div class="screen-block__text">
           <p class="screen-block__label">予約管理</p>
-          <p class="screen-block__desc">
-            管理画面から予約件数、人数、備考、アレルギー・苦手食材など、運営に必要な情報を確認できます。<br>
-            
-          </p>
+          <p class="screen-block__desc">管理画面から予約件数、人数、備考、アレルギー・苦手食材など、運営に必要な情報を確認できます。</p>
         </div>
       </div>
-
       <div class="screen-block">
         <div class="screen-block__image">
-          <img src="images/mockup-05-checkin.jpg" alt="チェックイン画面。会員番号を検索し当日の受付処理を行う。" loading="lazy" width="1400" height="993">
+          <img src="images/mockup-05-checkin.jpg" alt="チェックイン画面。" loading="lazy" width="1400" height="993">
         </div>
         <div class="screen-block__text">
           <p class="screen-block__label">チェックイン</p>
-          <p class="screen-block__desc">
-            会員番号を検索し、当日のチェックイン処理を行うことで、来店回数と最終履歴を更新できます。<br>
-            
-          </p>
+          <p class="screen-block__desc">会員番号を検索し、当日のチェックイン処理を行うことで、来店回数と最終履歴を更新できます。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 7. LIENでできること ============ -->
   <section class="section section--ivory" id="features">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">LIENでできること</p>
       <h2 class="section-title">機能ではなく、運営の変化として</h2>
-
       <div class="capability-grid">
         <div class="capability-card">
           <p class="capability-card__value">誰が会員なのかを、明確にする</p>
@@ -292,7 +250,6 @@
     </div>
   </section>
 
-  <!-- ============ 8. 自社運用事例 ============ -->
   <section class="section section--white">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">自社運用事例</p>
@@ -301,35 +258,26 @@
         LIENは、合同会社Nalu-09が実際に運営する会員制サービスと定期開催イベントの
         課題から生まれ、実際の現場で使用しながら必要な機能を整えてきたシステムです。
       </p>
-
       <div class="case-grid">
         <div class="case-card">
           <p class="case-card__word">Lumière Nalu</p>
           <p class="case-card__type">会員制・完全予約制の食事会</p>
-          <p class="case-card__desc">
-            会員申請、運営者による承認、デジタル会員証、会員向け予約、
-            当日チェックイン、来店履歴の管理にLIENを使用しています。
-          </p>
+          <p class="case-card__desc">会員申請、運営者による承認、デジタル会員証、会員向け予約、当日チェックイン、来店履歴の管理にLIENを使用しています。</p>
         </div>
         <div class="case-card">
           <p class="case-card__word">しゅわっとみーる</p>
           <p class="case-card__type">月1回開催の食と交流イベント</p>
-          <p class="case-card__desc">
-            開催日程ごとの申込、予約状況、参加者確認、当日受付、
-            参加履歴の管理にLIENの仕組みを活用しています。
-          </p>
+          <p class="case-card__desc">開催日程ごとの申込、予約状況、参加者確認、当日受付、参加履歴の管理にLIENの仕組みを活用しています。</p>
         </div>
       </div>
       <p class="case-note">※いずれも合同会社Nalu-09による自社運用事例です。</p>
     </div>
   </section>
 
-  <!-- ============ 9. 一般的な方法との違い ============ -->
   <section class="section section--ivory">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">一般的な方法との違い</p>
       <h2 class="section-title">用途が違う、というだけです</h2>
-
       <div class="compare-list">
         <div class="compare-row">
           <p class="compare-row__name">Googleフォーム</p>
@@ -355,12 +303,10 @@
     </div>
   </section>
 
-  <!-- ============ 10. 合う方・合わない方 ============ -->
   <section class="section section--white">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">合う方・合わない方</p>
       <h2 class="section-title">すべての事業者に、というわけではありません</h2>
-
       <div class="fit-grid">
         <div class="fit-card fit-card--yes">
           <h3 class="fit-card__title">LIENが合う方</h3>
@@ -387,189 +333,134 @@
     </div>
   </section>
 
-  <!-- ============ 11. 導入の流れ ============ -->
   <section class="section section--navy">
     <div class="wrap wrap--narrow">
       <p class="eyebrow eyebrow--gold">導入の流れ</p>
-      <h2 class="section-title section-title--light">システムを渡して終わり<br>
-        ではありません</h2>
-      <p class="section-lead section-lead--light">
-        現状の運営確認からテスト、操作説明、導入後の軽微な修正やお問い合わせ対応まで。
-      </p>
-
+      <h2 class="section-title section-title--light">システムを渡して終わり<br>ではありません</h2>
+      <p class="section-lead section-lead--light">現状の運営確認からテスト、操作説明、導入後の軽微な修正やお問い合わせ対応まで。</p>
       <ol class="step-list">
-        <li class="step-item">
-          <span class="step-item__num">STEP 1</span>
-          <h3 class="step-item__title">現状整理</h3>
-          <p class="step-item__desc">現在の申込方法、顧客管理、予約運用を確認します。</p>
-        </li>
-        <li class="step-item">
-          <span class="step-item__num">STEP 2</span>
-          <h3 class="step-item__title">運用設計</h3>
-          <p class="step-item__desc">会員制度、予約条件、管理項目、当日受付方法を整理します。</p>
-        </li>
-        <li class="step-item">
-          <span class="step-item__num">STEP 3</span>
-          <h3 class="step-item__title">初期構築</h3>
-          <p class="step-item__desc">会員申請、予約画面、管理画面、チェックイン機能を構築します。</p>
-        </li>
-        <li class="step-item">
-          <span class="step-item__num">STEP 4</span>
-          <h3 class="step-item__title">導入支援</h3>
-          <p class="step-item__desc">初期設定、テスト、操作説明を行います。</p>
-        </li>
-        <li class="step-item">
-          <span class="step-item__num">STEP 5</span>
-          <h3 class="step-item__title">保守対応</h3>
-          <p class="step-item__desc">導入後の不具合確認、軽微な修正、操作に関するお問い合わせに対応します。</p>
-        </li>
+        <li class="step-item"><span class="step-item__num">STEP 1</span><h3 class="step-item__title">現状整理</h3><p class="step-item__desc">現在の申込方法、顧客管理、予約運用を確認します。</p></li>
+        <li class="step-item"><span class="step-item__num">STEP 2</span><h3 class="step-item__title">運用設計</h3><p class="step-item__desc">会員制度、予約条件、管理項目、当日受付方法を整理します。</p></li>
+        <li class="step-item"><span class="step-item__num">STEP 3</span><h3 class="step-item__title">初期構築</h3><p class="step-item__desc">会員申請、予約画面、管理画面、チェックイン機能を構築します。</p></li>
+        <li class="step-item"><span class="step-item__num">STEP 4</span><h3 class="step-item__title">導入支援</h3><p class="step-item__desc">初期設定、テスト、操作説明を行います。</p></li>
+        <li class="step-item"><span class="step-item__num">STEP 5</span><h3 class="step-item__title">保守対応</h3><p class="step-item__desc">導入後の不具合確認、軽微な修正、操作に関するお問い合わせに対応します。</p></li>
       </ol>
     </div>
   </section>
 
-  <!-- ============ 12. 料金 ============ -->
+  <!-- ============ 12. 料金（3プラン制） ============ -->
   <section class="section section--ivory" id="price">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">料金</p>
-      <h2 class="section-title">導入工程を理解した、その先に</h2>
+      <h2 class="section-title">運営に合わせて、選べる3プラン</h2>
       <p class="section-lead">
-        料金は導入内容、運用範囲、管理項目数、予約条件、追加機能の有無により変動します。
+        独自ルールに合わせた個別設計を、開発会社に頼めば一般に150〜200万円。<br>
+        LIENは、必要な範囲を選べる形で、手が届く価格に整えました。
       </p>
-
       <div class="price-grid">
-        <div class="price-card">
-          <p class="price-card__tag">初期</p>
-          <h3 class="price-card__title">LIEN 導入・構築</h3>
-          <p class="price-card__amount">198,000<span>円〜</span></p>
-          <p class="price-card__includes">
-            現状整理／運用設計／初期構築<br>管理画面／導入支援
-          </p>
-        </div>
-        <div class="price-card price-card--accent">
-          <p class="price-card__tag">月額</p>
-          <h3 class="price-card__title">LIEN 保守・運用管理</h3>
-          <p class="price-card__amount">11,000<span>円〜33,000円</span></p>
-          <p class="price-card__includes">
-            不具合確認／接続確認<br>軽微な修正／操作に関するお問い合わせ対応
-          </p>
-          <p class="price-card__caveat">※新機能の追加や仕様変更は含まれません<br>（追加開発・改善として個別対応）</p>
-        </div>
-        <div class="price-card">
-          <p class="price-card__tag">個別</p>
-          <h3 class="price-card__title">LIEN 追加開発・改善</h3>
-          <p class="price-card__amount">33,000<span>円〜／個別見積り</span></p>
-          <p class="price-card__includes">
-            新機能／画面追加<br>外部連携／大幅な仕様変更
-          </p>
-        </div>
-      </div>
 
+        <div class="price-card">
+          <p class="price-card__tag">ベーシック</p>
+          <h3 class="price-card__title">LIEN Basic</h3>
+          <p class="price-card__amount">198,000<span>円（初期）</span></p>
+          <p class="price-card__monthly">＋ 月額 22,000円</p>
+          <ul class="price-card__list">
+            <li>会員申請・承認・会員証発行</li>
+            <li>会員ランク（3セットから選択）</li>
+            <li>予約受付・当日チェックイン・履歴管理</li>
+            <li>日程表示（リスト／カレンダー）</li>
+            <li>ステータス更新（自動／手動いずれか）</li>
+            <li>予約確認：メール</li>
+            <li>LINEリッチメニュー連携（会員証・予約導線）</li>
+            <li>管理画面（内容確認）</li>
+            <li>対面決済向け（予約管理のみ）</li>
+          </ul>
+        </div>
+
+        <div class="price-card price-card--accent">
+          <p class="price-card__tag">スタンダード</p>
+          <h3 class="price-card__title">LIEN Standard</h3>
+          <p class="price-card__amount">298,000<span>円（初期）</span></p>
+          <p class="price-card__monthly">＋ 月額 22,000円</p>
+          <p class="price-card__note-lead">ベーシックのすべて＋</p>
+          <ul class="price-card__list">
+            <li>会員ランク：セット選択またはオリジナル名称</li>
+            <li>オリジナル会員証デザイン</li>
+            <li>ステータス更新：自動・手動 両対応</li>
+            <li>ニックネーム表示対応</li>
+            <li>会員申請パスワード対応</li>
+            <li>カード決済（Square連携）</li>
+            <li>会員／非会員の予約フォーム出し分け</li>
+            <li>予約確認：LINE反映（メールも選択可）</li>
+            <li>管理画面：スプレッドシートを極力触らない作り込み</li>
+          </ul>
+        </div>
+
+        <div class="price-card">
+          <p class="price-card__tag">プレミアム</p>
+          <h3 class="price-card__title">LIEN Premium</h3>
+          <p class="price-card__amount">要相談<span>（カスタム）</span></p>
+          <p class="price-card__monthly">＋ 月額 別途</p>
+          <ul class="price-card__list">
+            <li>上記を超える独自要件</li>
+            <li>複数サービス・複数事業の連携</li>
+            <li>特殊な会員条件・予約設計</li>
+            <li>大幅なカスタマイズ</li>
+          </ul>
+          <p class="price-card__caveat">運営内容をお伺いし、個別にお見積もりします。</p>
+        </div>
+
+      </div>
       <p class="price-footnote">
-        運営内容、管理項目、予約条件、追加機能により必要な構成が異なるため、正式な金額は現状確認後にご提示いたします。<br>
-        
+        追加開発・機能追加は 33,000円〜（個別見積り）。<br>
+        料金は運営内容・管理項目・予約条件により変わる場合があります。正式な金額は現状確認後にご提示します。<br>
+        ※カード決済（Square連携）に伴う決済トラブルについては、決済事業者の規定に準じ、当社は仲介・設定の範囲で対応します。
       </p>
     </div>
   </section>
 
-  <!-- ============ 13. FAQ ============ -->
   <section class="section section--white" id="faq">
     <div class="wrap wrap--narrow">
       <p class="eyebrow">よくある質問</p>
       <h2 class="section-title">よくある質問</h2>
-
       <div class="faq-list">
-
-        <details class="faq-item">
-          <summary>既存のLINE公式を使用できますか</summary>
-          <p>はい。現在お使いのLINE公式アカウントと連携して構築できます。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>LINE公式をまだ持っていなくても相談できますか</summary>
-          <p>はい。LINE公式アカウントの開設からあわせてご相談いただけます。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Googleフォームやスプレッドシートから移行できますか</summary>
-          <p>はい。現在の運用方法を確認したうえで、LIENへの移行方法をご提案します。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>予約機能だけ依頼できますか</summary>
-          <p>ご相談は可能です。ただし、会員管理や履歴管理と組み合わせることで、LIEN本来の価値が発揮されやすくなります。まずは現在の運営状況をお聞かせください。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>導入までどれくらいかかりますか</summary>
-          <p>運用設計や機能の範囲により異なります。現状整理のご相談時に、おおよその期間をお伝えします。（案件ごとの個別確認事項です）</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>初期費用に含まれる内容は何ですか</summary>
-          <p>現状整理、運用設計、初期構築、管理画面、導入支援が含まれます。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>月額保守には何が含まれますか</summary>
-          <p>不具合確認、接続確認、軽微な修正、操作に関するお問い合わせ対応が含まれます。新機能の追加や仕様変更は含まれません。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>追加料金が発生するのはどのような場合ですか</summary>
-          <p>標準機能以外の新機能追加、画面追加、外部連携、大幅な仕様変更が必要な場合、個別見積りとして追加料金が発生します。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>日常の予約確認や顧客対応も代行してもらえますか</summary>
-          <p>いいえ。日常の予約確認、顧客対応、登録作業の代行は含まれません。導入後の運用は、原則として運営者様ご自身で行っていただきます。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>売上や再来店数は保証されますか</summary>
-          <p>いいえ。売上、集客、再来店数の増加を保証するものではありません。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>個人情報や閲覧権限はどのように管理しますか</summary>
-          <p>個人情報の管理範囲、閲覧権限、責任分担については、契約時に個別に取り決めます。</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>LINEやGoogle等の利用料は含まれますか</summary>
-          <p>含まれません。LINEやGoogleなど、外部サービスの利用料は別途ご負担いただきます。</p>
-        </details>
-
+        <details class="faq-item"><summary>既存のLINE公式を使用できますか</summary><p>はい。現在お使いのLINE公式アカウントと連携して構築できます。</p></details>
+        <details class="faq-item"><summary>LINE公式をまだ持っていなくても相談できますか</summary><p>はい。LINE公式アカウントの開設からあわせてご相談いただけます。</p></details>
+        <details class="faq-item"><summary>Googleフォームやスプレッドシートから移行できますか</summary><p>はい。現在の運用方法を確認したうえで、LIENへの移行方法をご提案します。</p></details>
+        <details class="faq-item"><summary>予約機能だけ依頼できますか</summary><p>ご相談は可能です。ただし、会員管理や履歴管理と組み合わせることで、LIEN本来の価値が発揮されやすくなります。まずは現在の運営状況をお聞かせください。</p></details>
+        <details class="faq-item"><summary>導入までどれくらいかかりますか</summary><p>運用設計や機能の範囲により異なります。現状整理のご相談時に、おおよその期間をお伝えします。</p></details>
+        <details class="faq-item"><summary>初期費用に含まれる内容は何ですか</summary><p>現状整理、運用設計、初期構築、管理画面、導入支援が含まれます。</p></details>
+        <details class="faq-item"><summary>月額には何が含まれますか</summary><p>システムが動き続けるための保守、不具合確認、接続確認、軽微な修正、操作に関するお問い合わせ対応が含まれます。新機能の追加や仕様変更は含まれません。</p></details>
+        <details class="faq-item"><summary>ベーシックとスタンダードの違いは何ですか</summary><p>ベーシックは会員・予約・履歴の基本一式です。スタンダードは、オリジナルの会員証デザインや会員ランク名称、カード決済（Square連携）、会員／非会員のフォーム出し分け、LINEへの予約確認反映など、より作り込んだ運営に対応します。</p></details>
+        <details class="faq-item"><summary>追加料金が発生するのはどのような場合ですか</summary><p>標準機能以外の新機能追加、画面追加、外部連携、大幅な仕様変更が必要な場合、個別見積りとして追加料金が発生します。</p></details>
+        <details class="faq-item"><summary>日常の予約確認や顧客対応も代行してもらえますか</summary><p>いいえ。日常の予約確認、顧客対応、登録作業の代行は含まれません。導入後の運用は、原則として運営者様ご自身で行っていただきます。</p></details>
+        <details class="faq-item"><summary>売上や再来店数は保証されますか</summary><p>いいえ。売上、集客、再来店数の増加を保証するものではありません。</p></details>
+        <details class="faq-item"><summary>個人情報や閲覧権限はどのように管理しますか</summary><p>個人情報の管理範囲、閲覧権限、責任分担については、契約時に個別に取り決めます。</p></details>
+        <details class="faq-item"><summary>LINEやGoogle、Square等の利用料は含まれますか</summary><p>含まれません。LINE・Google・Squareなど、外部サービスの利用料や決済手数料は別途ご負担いただきます。</p></details>
       </div>
     </div>
   </section>
-  
+
   <p class="service-note">
   ※LIENは合同会社Nalu-09が提供する独自の会員・予約管理システムです。<br>　LINE公式サービスではありません。
-</p>
+  </p>
 
-  <!-- ============ 14. 最終CTA ============ -->
   <section class="section section--final-cta" id="cta">
     <div class="wrap wrap--narrow">
       <img src="images/logo-lien-web.png" alt="LIEN" class="cta-logo" width="64" height="64">
       <h2 class="cta-title">今の運営にLIENが合うか<br class="sp-only">まず整理しませんか</h2>
-      <p class="cta-body">
-        現在の申込方法、会員管理、予約運用、当日の受付方法を確認し、LIENで整えるべき範囲をご案内します。<br>
-        
-      </p>
-      <!-- TODO: LINE公式アカウントのURLが確定し次第、下記 href を差し替えてください -->
+      <p class="cta-body">現在の申込方法、会員管理、予約運用、当日の受付方法を確認し、LIENで整えるべき範囲をご案内します。</p>
       <a href="https://lin.ee/vX7NTKb" class="btn btn--primary btn--large" target="_blank" rel="noopener">LIENの導入を相談する</a>
     </div>
   </section>
 
 </main>
 
-<!-- ============ FOOTER ============ -->
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <img src="images/logo-lien-web.png" alt="LIEN" class="footer-logo" width="48" height="48">
     <p class="footer-company">合同会社 Nalu-09</p>
     <nav class="footer-nav">
-      <!-- 会社概要・プライバシーポリシーはNotionページへリンク（内容確定後に差し替え可） -->
       <a href="https://nalu-09.com/" target="_blank" rel="noopener">会社概要</a>
       <a href="https://sudden-squid-b26.notion.site/Nalu-09-3992665c0f6b803baddfc14da896d526?source=copy_link" target="_blank" rel="noopener">プライバシーポリシー</a>
       <a href="https://lin.ee/vX7NTKb" target="_blank" rel="noopener">お問い合わせ</a>
