@@ -7,8 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <style>
-  :root{--ink:#2a2a2a;--sub:#6a6a6a;--line:#dcd6c8;--gold:#b8860b;--gold-dim:#c6a15b;--ivory:#faf8f2;--navy:#1c2a3a}
+  :root{--ink:#2a2a2a;--sub:#6a6a6a;--line:#dcd6c8;--gold:#b8860b;--gold-dim:#c6a15b;--ivory:#faf8f2;--navy:#1c2a3a;--err:#b3452f}
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
   body{background:var(--ivory);color:var(--ink);font-family:"Noto Serif JP",serif;line-height:1.8;padding:0 18px 60px}
@@ -24,12 +25,8 @@
   .field input,.field select,.field textarea{width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;font-family:inherit;font-size:.92rem;color:var(--ink)}
   .field textarea{min-height:90px;resize:vertical}
   .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold-dim)}
-  .radio-group{display:flex;flex-direction:column;gap:10px}
-  .radio-opt{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:13px;cursor:pointer}
-  .radio-opt input{width:auto;margin-top:4px}
-  .radio-opt .t{font-size:.9rem;font-weight:600}
-  .radio-opt .d{font-size:.76rem;color:var(--sub)}
-  .note{background:#f3efe4;border:1px solid var(--line);border-radius:8px;padding:14px;font-size:.78rem;color:var(--sub);line-height:1.85;margin-bottom:22px}
+  .note{background:#f3efe4;border:1px solid var(--line);border-radius:8px;padding:14px;font-size:.78rem;color:var(--sub);line-height:1.85;margin-bottom:22px;display:none}
+  .errbox{background:#f9ecea;border:1px solid #e0b8b0;border-radius:8px;padding:14px;font-size:.84rem;color:var(--err);line-height:1.8;margin-bottom:22px;display:none}
   .agree{display:flex;align-items:flex-start;gap:9px;font-size:.82rem;margin-bottom:24px}
   .agree input{width:auto;margin-top:5px}
   .agree a{color:var(--gold);text-decoration:underline}
@@ -39,7 +36,7 @@
   .result h2{font-family:"Shippori Mincho",serif;font-size:1.15rem;color:var(--navy);margin-bottom:14px}
   .result p{font-size:.88rem;color:var(--sub);line-height:1.9;margin-bottom:20px}
   .result .paybtn{display:inline-block;background:var(--gold);color:#fff;text-decoration:none;border-radius:10px;padding:15px 30px;font-family:"Shippori Mincho",serif;font-weight:600;font-size:.95rem}
-  .plan-only{display:none}
+  .loading{text-align:center;padding:60px 0;color:var(--sub);font-size:.9rem}
 </style>
 </head>
 <body>
@@ -49,7 +46,9 @@
     <div class="sub">BY NALU-09</div>
   </header>
 
-  <div id="formArea">
+  <div class="loading" id="loading">読み込み中…</div>
+
+  <div id="formArea" style="display:none">
     <h1>導入のご相談・お申込み</h1>
     <p class="lead">
       「まず相談したい」方も、「申込みたい」方も、こちらからお進みください。<br>
@@ -58,16 +57,16 @@
 
     <div class="field">
       <label>ご希望<span class="req">必須</span></label>
-      <div class="radio-group">
-        <label class="radio-opt">
-          <input type="radio" name="type" value="相談" onchange="onType()">
-          <span><span class="t">まず相談したい</span><br><span class="d">自分の運営に合うか等を相談する</span></span>
-        </label>
-        <label class="radio-opt">
-          <input type="radio" name="type" value="申込" onchange="onType()">
-          <span><span class="t">申込みたい</span><br><span class="d">プランを決めて購入に進む</span></span>
-        </label>
-      </div>
+      <select id="type" onchange="onType()">
+        <option value="">選択してください</option>
+        <option value="相談">まず相談したい（運営に合うか等を相談）</option>
+        <option value="申込">申込みたい（プランを決めて購入に進む）</option>
+      </select>
+    </div>
+
+    <div class="errbox" id="errbox">
+      お申込みには、事前のご相談が必要です。<br>
+      「ご希望」で <b>まず相談したい</b> を選び、こちらからお進みください。
     </div>
 
     <div class="field"><label>お名前<span class="req">必須</span></label><input id="name" type="text"></div>
@@ -84,14 +83,14 @@
         <option value="Basic Plan">ベーシック（初期198,000円＋月額22,000円）</option>
         <option value="Standard Plan">スタンダード（初期298,000円＋月額22,000円）</option>
         <option value="Premium">プレミアム（要相談・カスタム）</option>
-        <option value="未定">まだ決めていない / 相談したい</option>
+        <option value="未定">まだ決めていない／相談したい</option>
       </select>
     </div>
 
     <div class="field"><label>運営の概要・ご相談内容</label><textarea id="detail" placeholder="現在の会員数・開催頻度・いまの管理方法・お困りごと など"></textarea></div>
     <div class="field"><label>ご希望時期</label><input id="timing" type="text" placeholder="例：来月中に導入したい など"></div>
 
-    <div class="note plan-only" id="applyNote">
+    <div class="note" id="applyNote">
       ※お申込みの場合、送信後に初期費用のお支払い（クレジットカード）にお進みいただけます。<br>
       ※月額費用（22,000円）は、納品の翌月末より開始します。別途ご案内するリンクからご登録ください。<br>
       ※プレミアム（カスタム）は個別お見積りのため決済には進まず、内容を確認してご連絡します。
@@ -113,53 +112,94 @@
 </div>
 
 <script>
+var LIFF_ID = "2011403714-9uoN4VP8";
 var GAS_URL = "https://script.google.com/macros/s/AKfycbwUgSH9JYdM57PjT5Zm-XkXcsXCKiNA6nCQi845fqJy2xByjWFk7eaGwKL_iPi7vtCH/exec"; // ← このフォーム用GASのウェブアプリURL（…/exec）
+var USER_ID = "";        // LINEユーザーID
+var HAS_HISTORY = false; // 過去の相談履歴があるか
+
+// 起動：LIFF初期化 → ユーザーID取得 → 過去の相談を照合
+liff.init({ liffId: LIFF_ID })
+  .then(function(){
+    if(!liff.isLoggedIn()){ liff.login(); return; }
+    return liff.getProfile();
+  })
+  .then(function(profile){
+    if(!profile) return;
+    USER_ID = profile.userId;
+    // 過去の相談を照合
+    return fetch(GAS_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({ action:'lookup', userId: USER_ID }) })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d && d.found){
+          HAS_HISTORY = true;
+          // 過去情報を自動入力
+          setVal('name', d.name); setVal('kana', d.kana); setVal('email', d.email);
+          setVal('tel', d.tel); setVal('company', d.company); setVal('industry', d.industry);
+        }
+      });
+  })
+  .catch(function(e){ /* LIFF外やエラーでも、フォーム自体は使えるようにする */ })
+  .then(function(){
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('formArea').style.display = 'block';
+  });
+
+function setVal(id, v){ if(v) document.getElementById(id).value = v; }
 
 function onType(){
-  var t = document.querySelector('input[name="type"]:checked');
-  document.getElementById('applyNote').style.display = (t && t.value==='申込') ? 'block' : 'none';
+  var t = document.getElementById('type').value;
+  document.getElementById('applyNote').style.display = (t==='申込') ? 'block' : 'none';
+  // 申込を選んだのに相談履歴がない → エラー表示して止める
+  var err = document.getElementById('errbox');
+  if(t==='申込' && !HAS_HISTORY){
+    err.style.display = 'block';
+  } else {
+    err.style.display = 'none';
+  }
 }
 
 function SUBMIT(){
   var btn = document.getElementById('submitBtn');
-  var typeEl = document.querySelector('input[name="type"]:checked');
-  if(!typeEl){ alert('「ご希望」を選択してください'); return; }
-  var type = typeEl.value;
+  var type = document.getElementById('type').value;
+  if(!type){ alert('「ご希望」を選択してください'); return; }
+
+  // 申込なのに相談履歴がない場合は止める
+  if(type==='申込' && !HAS_HISTORY){
+    alert('お申込みには事前のご相談が必要です。「まず相談したい」からお進みください。');
+    return;
+  }
+
   var name = document.getElementById('name').value.trim();
   var kana = document.getElementById('kana').value.trim();
   var email = document.getElementById('email').value.trim();
   var tel = document.getElementById('tel').value.trim();
   var plan = document.getElementById('plan').value;
   var agree = document.getElementById('agree').checked;
-
   if(!name||!kana||!email||!tel){ alert('必須項目（お名前・カナ・メール・電話）をご入力ください'); return; }
   if(!plan){ alert('プランを選択してください'); return; }
   if(!agree){ alert('利用規約・プライバシーポリシーへの同意が必要です'); return; }
 
   btn.disabled = true; btn.textContent = '送信中…';
-
   var payload = {
-    type: type, name: name, kana: kana, email: email, tel: tel,
-    company: document.getElementById('company').value.trim(),
-    industry: document.getElementById('industry').value.trim(),
-    plan: plan,
-    detail: document.getElementById('detail').value.trim(),
-    timing: document.getElementById('timing').value.trim()
+    type:type, userId:USER_ID, name:name, kana:kana, email:email, tel:tel,
+    company:document.getElementById('company').value.trim(),
+    industry:document.getElementById('industry').value.trim(),
+    plan:plan,
+    detail:document.getElementById('detail').value.trim(),
+    timing:document.getElementById('timing').value.trim()
   };
 
   fetch(GAS_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) })
   .then(function(r){ return r.json(); })
   .then(function(d){
     document.getElementById('formArea').style.display = 'none';
-    var res = document.getElementById('result');
-    res.style.display = 'block';
-    if(type === '申込' && d.url){
+    var res = document.getElementById('result'); res.style.display = 'block';
+    if(type==='申込' && d.url){
       document.getElementById('resultTitle').textContent = 'お申込みありがとうございます';
       document.getElementById('resultMsg').textContent = '続けて、初期費用のお支払いにお進みください。';
-      var pay = document.getElementById('payBtn');
-      pay.href = d.url; pay.style.display = 'inline-block';
-    } else if(type === '申込' && !d.url){
-      // プレミアム等、URLがない申込
+      var pay = document.getElementById('payBtn'); pay.href = d.url; pay.style.display = 'inline-block';
+    } else if(type==='申込' && !d.url){
       document.getElementById('resultTitle').textContent = 'お申込みを受け付けました';
       document.getElementById('resultMsg').textContent = 'カスタム内容のため、内容を確認のうえ、担当より個別にご連絡いたします。';
     } else {
@@ -169,7 +209,7 @@ function SUBMIT(){
   })
   .catch(function(e){
     btn.disabled = false; btn.textContent = '送信する';
-    alert('送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。\n' + e.message);
+    alert('送信に失敗しました。もう一度お試しください。\n' + e.message);
   });
 }
 </script>
