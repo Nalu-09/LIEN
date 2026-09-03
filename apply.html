@@ -60,7 +60,7 @@
       <select id="type" onchange="onType()">
         <option value="">選択してください</option>
         <option value="相談">まず相談したい（運営に合うか等を相談）</option>
-        <option value="申込">申込む（プランを決めて購入に進む）</option>
+        <option value="申込">申込みたい（プランを決めて購入に進む）</option>
       </select>
     </div>
 
@@ -77,13 +77,9 @@
     <div class="field"><label>業種</label><input id="industry" type="text" placeholder="例：会員制の食事会／サロン／教室 など"></div>
 
     <div class="field">
-      <label>ご希望・ご検討中のプラン<span class="req">必須</span></label>
+      <label id="planLabel">ご希望・ご検討中のプラン<span class="req">必須</span></label>
       <select id="plan">
-        <option value="">選択してください</option>
-        <option value="Basic Plan">ベーシック（初期198,000円＋月額22,000円）</option>
-        <option value="Standard Plan">スタンダード（初期298,000円＋月額22,000円）</option>
-        <option value="Premium">プレミアム（要相談・カスタム）</option>
-        <option value="未定">まだ決めていない／相談したい</option>
+        <option value="">先に「ご希望」を選択してください</option>
       </select>
     </div>
 
@@ -113,7 +109,7 @@
 
 <script>
 var LIFF_ID = "2011403714-9uoN4VP8";
-var GAS_URL = "https://script.google.com/macros/s/AKfycbwUgSH9JYdM57PjT5Zm-XkXcsXCKiNA6nCQi845fqJy2xByjWFk7eaGwKL_iPi7vtCH/exec"; // ← このフォーム用GASのウェブアプリURL（…/exec）
+var GAS_URL = "PASTE_YOUR_GAS_URL_HERE"; // ← このフォーム用GASのウェブアプリURL（…/exec）
 var USER_ID = "";        // LINEユーザーID
 var HAS_HISTORY = false; // 過去の相談履歴があるか
 
@@ -150,13 +146,45 @@ function setVal(id, v){ if(v) document.getElementById(id).value = v; }
 function onType(){
   var t = document.getElementById('type').value;
   document.getElementById('applyNote').style.display = (t==='申込') ? 'block' : 'none';
-  // 申込を選んだのに相談履歴がない → エラー表示して止める
-  var err = document.getElementById('errbox');
-  if(t==='申込' && !HAS_HISTORY){
-    err.style.display = 'block';
+
+  // プランの選択肢とラベルを、相談/申込で切り替える
+  var planSel = document.getElementById('plan');
+  var planLabel = document.getElementById('planLabel');
+  var prev = planSel.value;
+  planSel.innerHTML = '';
+  var opts = [];
+  if(t==='申込'){
+    planLabel.innerHTML = 'ご購入されるプラン<span class="req">必須</span>';
+    opts = [
+      ['', '選択してください'],
+      ['Basic Plan', 'ベーシック（初期198,000円＋月額22,000円）'],
+      ['Standard Plan', 'スタンダード（初期298,000円＋月額22,000円）'],
+      ['Premium', 'プレミアム（カスタム）']
+    ];
+  } else if(t==='相談'){
+    planLabel.innerHTML = 'ご希望・ご検討中のプラン<span class="req">必須</span>';
+    opts = [
+      ['', '選択してください'],
+      ['Basic Plan', 'ベーシック（初期198,000円＋月額22,000円）'],
+      ['Standard Plan', 'スタンダード（初期298,000円＋月額22,000円）'],
+      ['Premium', 'プレミアム（要相談・カスタム）'],
+      ['未定', 'まだ決めていない／相談したい']
+    ];
   } else {
-    err.style.display = 'none';
+    planLabel.innerHTML = 'ご希望・ご検討中のプラン<span class="req">必須</span>';
+    opts = [['', '先に「ご希望」を選択してください']];
   }
+  for(var i=0;i<opts.length;i++){
+    var o = document.createElement('option');
+    o.value = opts[i][0]; o.textContent = opts[i][1];
+    planSel.appendChild(o);
+  }
+  // 直前に選んでいた値が新しい選択肢にもあれば維持
+  for(var j=0;j<planSel.options.length;j++){ if(planSel.options[j].value===prev){ planSel.value=prev; break; } }
+
+  // 申込を選んだのに相談履歴がない → エラー表示
+  var err = document.getElementById('errbox');
+  err.style.display = (t==='申込' && !HAS_HISTORY) ? 'block' : 'none';
 }
 
 function SUBMIT(){
